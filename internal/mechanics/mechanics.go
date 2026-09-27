@@ -284,7 +284,7 @@ func (e *Engine) Run(ctx context.Context, s *Subject) (*Report, error) {
 	rep := &Report{
 		Asset:              s.Asset,
 		Accountability:     AccountabilityUnknown,
-		ScannedAt:          s.ScannedAt,
+		ScannedAt:          scannedAt,
 		CheckSet:           e.CheckIDs(),
 		Findings:           []Finding{},
 		Evidence:           []Evidence{},
