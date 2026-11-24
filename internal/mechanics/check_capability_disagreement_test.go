@@ -272,13 +272,13 @@ func TestResolutionNeverSitsBelowEitherSource(t *testing.T) {
 		{"revocable on the account only",
 			horizon.Flags{}, horizon.Flags{AuthRevocable: true}},
 		{"clawback on the asset record only",
-			horizon.Flags{AuthClawbackEnabled: true}, horizon.Flags{}},
+			horizon.Flags{AuthClawbackEnabled: true, AuthRevocable: true}, horizon.Flags{}},
 		{"clawback on the account only",
-			horizon.Flags{}, horizon.Flags{AuthClawbackEnabled: true}},
+			horizon.Flags{}, horizon.Flags{AuthClawbackEnabled: true, AuthRevocable: true}},
 		{"required on the asset record, revocable on the account",
 			horizon.Flags{AuthRequired: true}, horizon.Flags{AuthRevocable: true}},
 		{"clawback on the asset record, revocable on the account",
-			horizon.Flags{AuthClawbackEnabled: true}, horizon.Flags{AuthRevocable: true}},
+			horizon.Flags{AuthClawbackEnabled: true, AuthRevocable: true}, horizon.Flags{AuthRevocable: true}},
 	}
 	for _, tc := range cases {
 		t.Run(tc.name, func(t *testing.T) {

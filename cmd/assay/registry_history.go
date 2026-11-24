@@ -8,7 +8,6 @@ import (
 	"encoding/binary"
 	"encoding/json"
 	"errors"
-	"flag"
 	"fmt"
 	"io"
 	"net/http"
@@ -294,7 +293,7 @@ func scAddressContract(strkey string) (string, error) {
 }
 
 func runRegistryHistory(args []string, d commandDeps) error {
-	fs := flag.NewFlagSet("registry-history", flag.ContinueOnError)
+	fs := newFlagSet("registry-history")
 	registryRPC := fs.String("registry-rpc", envOr("ASSAY_RPC_URL", registry.DefaultRPCURL), "Soroban RPC endpoint for the registry (env ASSAY_RPC_URL)")
 	rpcURL := fs.String("rpc", "", "alias for -registry-rpc")
 	contract := fs.String("contract", envOr("ASSAY_CONTRACT_ID", registry.DefaultContractID), "registry contract id (env ASSAY_CONTRACT_ID)")

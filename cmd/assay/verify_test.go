@@ -427,3 +427,29 @@ func TestVerifyRegistryFlagsParsed(t *testing.T) {
 		t.Errorf("rpc = %s", *rpcURL)
 	}
 }
+
+func TestVerifyAndRegistryHistoryShareRegistryFlags(t *testing.T) {
+	old := flagSetOutput
+	var buf bytes.Buffer
+	flagSetOutput = &buf
+	t.Cleanup(func() { flagSetOutput = old })
+
+	// Check flags registered by verify on -h
+	_ = runVerify([]string{"-h"})
+	verifyHelp := buf.String()
+	buf.Reset()
+
+	// Check flags registered by registry-history on -h
+	_ = runRegistryHistory([]string{"-h"}, commandDeps{stderr: &buf})
+	historyHelp := buf.String()
+
+	registryFlags := []string{"-registry-rpc", "-contract", "-network"}
+	for _, flag := range registryFlags {
+		if !strings.Contains(verifyHelp, flag) {
+			t.Errorf("verify does not register registry flag %s", flag)
+		}
+		if !strings.Contains(historyHelp, flag) {
+			t.Errorf("registry-history does not register registry flag %s", flag)
+		}
+	}
+}

@@ -94,7 +94,8 @@ func usage(w io.Writer) {
 	_, _ = fmt.Fprint(w, `usage:
   assay scan CODE-ISSUER          classify one asset and print the report as JSON
   assay attestation CODE-ISSUER   print the on-chain attest() arguments for one asset
-  assay verify [-json] [-max-age SECS] [-differential [-rpc URL]] CODE-ISSUER
+  assay verify [-json] [-max-age SECS] [-differential [-rpc URL]]
+               [-registry-rpc URL] [-contract C...] [-network NETWORK] CODE-ISSUER
                                   compare a live scan with the on-chain attestation
                                   (with -differential, also re-read issuer flags via RPC)
   assay verify -bundle IN [-json]
@@ -103,7 +104,7 @@ func usage(w io.Writer) {
                                   compare two saved reports and print what changed
   assay history [-guarantee] [-raw] [-server URL] CODE-ISSUER
                                   print the asset's observation history
-  assay registry-history [-rpc URL] [-contract C...] [-json] ASSET
+  assay registry-history [-registry-rpc URL] [-rpc URL] [-contract C...] [-network NETWORK] [-json] ASSET
                                   print the registry's attest/revoke events for an asset
                                   (CODE-ISSUER or SAC address), bounded by RPC event retention
   assay verify-preimage [-version VERSION] HASH PREIMAGE
@@ -143,6 +144,11 @@ The attestation command additionally accepts:
 The history command additionally accepts:
   -server URL             fetch history from a running assay server instead of
                           computing from a local scan (e.g. http://localhost:8080)
+
+The verify command additionally accepts:
+  -registry-rpc URL       Soroban RPC endpoint for the registry (env ASSAY_RPC_URL)
+  -contract ID            registry contract id (env ASSAY_CONTRACT_ID)
+  -network NAME           network used to derive the SAC id (env ASSAY_NETWORK)
 
 The serve command additionally accepts:
   -observe FILE           path to asset list file for scheduled observation

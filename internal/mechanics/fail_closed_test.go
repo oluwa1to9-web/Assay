@@ -120,7 +120,7 @@ func TestFailClosedFlagDisagreementResolvesAgainstTheHolder(t *testing.T) {
 	s := subject(func(s *mechanics.Subject) {
 		// The asset record says the issuer can claw back; the account record
 		// (stale or wrong) says nothing. The issuer can claw back.
-		s.Stat.Flags = horizon.Flags{AuthClawbackEnabled: true}
+		s.Stat.Flags = horizon.Flags{AuthClawbackEnabled: true, AuthRevocable: true}
 		s.Issuer.Flags = horizon.Flags{}
 	})
 	rep := run(t, s)
